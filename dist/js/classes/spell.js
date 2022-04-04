@@ -1136,7 +1136,7 @@ class ProtectorsVigor extends Aura {
 
     constructor(player) {
         super(player);
-        this.duration = 10;
+        this.duration = 20;
         this.name = 'Protector\'s Vigor';
         this.cooldown = 180;
         this.cooldowntimer = 0
@@ -1146,6 +1146,7 @@ class ProtectorsVigor extends Aura {
         this.defensive = true;
     }
     use() {
+        this.player.itemtimer = this.duration * 1000;
         this.timer = step + this.duration * 1000;
         this.cooldowntimer = step + this.cooldown * 1000
         this.starttimer = step;
@@ -1158,7 +1159,7 @@ class ProtectorsVigor extends Aura {
     step() {
         if (step > this.timer && this.active) {
             this.active = false;
-            this.timer = step;
+            this.timer = this.starttimer + this.cooldown;
             this.player.updateStats();
             this.player.stats.maxhp -= 1750;
             this.uptime += step - this.starttimer;
@@ -1183,7 +1184,7 @@ class TremendousFortitude extends Aura {
 
     constructor(player) {
         super(player);
-        this.duration = 10;
+        this.duration = 15;
         this.name = 'Tremendous Fortitude';
         this.cooldown = 180;
         this.cooldowntimer = 0
@@ -1193,6 +1194,7 @@ class TremendousFortitude extends Aura {
         this.defensive = true;
     }
     use() {
+        this.player.itemtimer = this.duration * 1000;
         this.timer = step + this.duration * 1000;
         this.cooldowntimer = step + this.cooldown * 1000;
         this.starttimer = step;
@@ -1205,7 +1207,7 @@ class TremendousFortitude extends Aura {
     step() {
         if (step > this.timer && this.active) {
             this.active = false;
-            this.timer = step;
+            this.timer = this.starttimer + this.cooldown;
             this.player.updateStats();
             this.player.stats.maxhp -= 1750;
             this.uptime += step - this.starttimer;

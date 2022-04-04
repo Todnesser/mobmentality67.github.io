@@ -336,7 +336,7 @@ class Simulation {
             player.cast(player.auras.hastepot, damage_threat);
         }  
 
-        /* Pop haste pot if active */
+        /* Pop chicken if active */
         if (player.auras.squawks) {
             player.cast(player.auras.squawks, damage_threat);
         } 
@@ -502,10 +502,9 @@ class Simulation {
         this.totalduration += this.duration;
         if (died) {
             this.totaldeaths++;
-            died = false;
         }
         else if (player.defensivesave) {
-            this.totaldefensivesaves++ ;
+            this.totaldefensivesaves++;
         }
         
         this.ehp = this.player.getEHP();
