@@ -594,6 +594,8 @@ class Player {
         this.batchedextras = 0;
         this.nextswinghs = false;
         this.nextswingcl = false;
+        this.defensivesave = false;
+        this.countdefensivesave = 0;
         this.lasthptick = 0;
         for (let s in this.spells) {
             this.spells[s].timer = 0;
@@ -1053,6 +1055,7 @@ class Player {
         if (this.currenthp <= 0) {
             died = true;
             this.defensivesave = false; // Rule out previously saved life
+            this.countdefensivesave = 0;
         }
         /* If below defensive HP threshold, pop all defensives available */
         else if (this.currenthp <= this.defensivehpthreshold) {
@@ -1064,7 +1067,7 @@ class Player {
         }
         let bonusdefensivehp = 0;
         activatedSpells.forEach(spell => {
-                if (spell.defensive && spell.active) {
+                if (spell.active && spell.stats && spell.stats.bonushp) {
                     bonusdefensivehp += spell.stats.bonushp;
                 }
             })
@@ -1072,6 +1075,7 @@ class Player {
         /* If current hp is less than added HP from defensives, count a save */
         if (this.currenthp < bonusdefensivehp && !died) {
             this.defensivesave = true;
+            this.countdefensivesave++;
         }
 
         return died;

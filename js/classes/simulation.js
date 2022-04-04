@@ -504,8 +504,8 @@ class Simulation {
             this.totaldeaths++;
             died = false;
         }
-        else {
-            this.totaldefensivesaves += player.defensivesave;
+        else if (player.defensivesave) {
+            this.totaldefensivesaves++ ;
         }
         
         this.ehp = this.player.getEHP();
@@ -528,8 +528,6 @@ class Simulation {
         else this.spread[dps]++;
         if (!this.tpsspread[tps]) this.tpsspread[tps] = 1;
         else this.tpsspread[tps]++;
-
-        //player.defensivesave = false;
     }
     update(iteration) {
         if (this.cb_update) {

@@ -1138,7 +1138,8 @@ class ProtectorsVigor extends Aura {
         super(player);
         this.duration = 10;
         this.name = 'Protector\'s Vigor';
-        this.cooldown = 180 * 1000;
+        this.cooldown = 180;
+        this.cooldowntimer = 0
         this.active = false;
         this.stats = { bonushp: 1750 };
         this.activeuse = true;
@@ -1146,10 +1147,12 @@ class ProtectorsVigor extends Aura {
     }
     use() {
         this.timer = step + this.duration * 1000;
+        this.cooldowntimer = step + this.cooldown * 1000
         this.starttimer = step;
         this.active = true;
         this.player.updateStats();
         this.player.currenthp += 1750;
+        this.player.stats.maxhp += 1750;
         if (this.player.enableLogging) this.player.log(`Protector's Vigor applied. Current HP: ${this.player.currenthp} / ${this.player.stats.maxhp}`);
     }
     step() {
@@ -1157,18 +1160,20 @@ class ProtectorsVigor extends Aura {
             this.active = false;
             this.timer = step;
             this.player.updateStats();
+            this.player.stats.maxhp -= 1750;
             this.uptime += step - this.starttimer;
             if (this.player.enableLogging) this.player.log(`Protector's Vigor removed. Current HP: ${this.player.currenthp} / ${this.player.stats.maxhp}`);
         }
     }
     canUse() {
-        return (step >= this.timer);
+        return (step >= this.cooldowntimer);
     }
     end() {
         if (this.active) {
            this.uptime += step - this.starttimer;
         }
         this.timer = 0;
+        this.cooldowntimer = 0;
         this.stacks = 0;
         this.active = false;
     }
@@ -1180,7 +1185,8 @@ class TremendousFortitude extends Aura {
         super(player);
         this.duration = 10;
         this.name = 'Tremendous Fortitude';
-        this.cooldown = 180 * 1000;
+        this.cooldown = 180;
+        this.cooldowntimer = 0
         this.active = false;
         this.stats = { bonushp: 1750 };
         this.activeuse = true;
@@ -1188,10 +1194,12 @@ class TremendousFortitude extends Aura {
     }
     use() {
         this.timer = step + this.duration * 1000;
+        this.cooldowntimer = step + this.cooldown * 1000;
         this.starttimer = step;
         this.active = true;
         this.player.updateStats();
         this.player.currenthp += 1750;
+        this.player.stats.maxhp += 1750;
         if (this.player.enableLogging) this.player.log(`Tremendous Fortitude applied. Current HP: ${this.player.currenthp} / ${this.player.stats.maxhp}`);
     }
     step() {
@@ -1199,18 +1207,20 @@ class TremendousFortitude extends Aura {
             this.active = false;
             this.timer = step;
             this.player.updateStats();
+            this.player.stats.maxhp -= 1750;
             this.uptime += step - this.starttimer;
             if (this.player.enableLogging) this.player.log(`Tremendous Fortitude removed. Current HP: ${this.player.currenthp} / ${this.player.stats.maxhp}`);
         }
     }
     canUse() {
-        return (step >= this.timer);
+        return (step >= this.cooldowntimer);
     }
     end() {
         if (this.active) {
            this.uptime += step - this.starttimer;
         }
         this.timer = 0;
+        this.cooldowntimer = 0;
         this.stacks = 0;
         this.active = false;
     }
