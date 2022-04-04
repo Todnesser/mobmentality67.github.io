@@ -1146,13 +1146,13 @@ class ProtectorsVigor extends Aura {
         this.defensive = true;
     }
     use() {
-        this.player.itemtimer = this.duration * 1000;
         this.timer = step + this.duration * 1000;
         this.cooldowntimer = step + this.cooldown * 1000
         this.starttimer = step;
         this.active = true;
         this.player.updateStats();
         this.player.currenthp += 1750;
+        this.player.stats.maxhp += 1750;
         if (this.player.enableLogging) this.player.log(`Protector's Vigor applied. Current HP: ${this.player.currenthp} / ${this.player.stats.maxhp}`);
     }
     step() {
@@ -1160,6 +1160,7 @@ class ProtectorsVigor extends Aura {
             this.active = false;
             this.timer = this.starttimer + this.cooldown;
             this.player.updateStats();
+            this.player.stats.maxhp -= 1750;
             this.uptime += step - this.starttimer;
             if (this.player.enableLogging) this.player.log(`Protector's Vigor removed. Current HP: ${this.player.currenthp} / ${this.player.stats.maxhp}`);
         }
@@ -1199,6 +1200,7 @@ class TremendousFortitude extends Aura {
         this.active = true;
         this.player.updateStats();
         this.player.currenthp += 1750;
+        this.player.stats.maxhp += 1750;
         if (this.player.enableLogging) this.player.log(`Tremendous Fortitude applied. Current HP: ${this.player.currenthp} / ${this.player.stats.maxhp}`);
     }
     step() {
@@ -1206,6 +1208,7 @@ class TremendousFortitude extends Aura {
             this.active = false;
             this.timer = this.starttimer + this.cooldown;
             this.player.updateStats();
+            this.player.stats.maxhp -= 1750;
             this.uptime += step - this.starttimer;
             if (this.player.enableLogging) this.player.log(`Tremendous Fortitude removed. Current HP: ${this.player.currenthp} / ${this.player.stats.maxhp}`);
         }

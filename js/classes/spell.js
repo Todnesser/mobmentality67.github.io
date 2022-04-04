@@ -1146,7 +1146,6 @@ class ProtectorsVigor extends Aura {
         this.defensive = true;
     }
     use() {
-        this.player.itemtimer = this.duration * 1000;
         this.timer = step + this.duration * 1000;
         this.cooldowntimer = step + this.cooldown * 1000
         this.starttimer = step;
